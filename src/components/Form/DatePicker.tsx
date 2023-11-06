@@ -1,6 +1,4 @@
 import { format } from "date-fns";
-import { fr } from "date-fns/locale";
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -28,7 +26,7 @@ export function DatePicker({ onChange, value, defaultDate, fromYear = 1940, toYe
 						variant={"outline"}
 						className={cn("w-full justify-start text-left font-normal", !value && "text-muted-foreground")}
 					>
-						{value && format(value, "dd-MM-yyyy")}
+						{value && format(value, "yyyy/MM/dd")}
 						<CalendarIcon className="ml-auto h-4 w-4" />
 					</Button>
 				</FormControl>
@@ -42,7 +40,6 @@ export function DatePicker({ onChange, value, defaultDate, fromYear = 1940, toYe
 					mode="single"
 					captionLayout="dropdown-buttons"
 					defaultMonth={defaultDate}
-					locale={fr}
 					selected={value}
 					onSelect={onChange}
 					fromYear={fromYear}

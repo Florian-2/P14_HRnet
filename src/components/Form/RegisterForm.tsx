@@ -36,180 +36,189 @@ export function RegisterForm() {
 	}
 
 	return (
-		<Form {...form}>
-			<form
-				onSubmit={handleSubmit(onSubmit)}
-				className="space-y-8"
-			>
-				<FormField
-					control={control}
-					name="firstname"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Firstname</FormLabel>
+		<section className="h-full flex flex-col gap-6 justify-center items-center mb-5 sm:gap-8 sm:-mt-14">
+			<h1 className="font-medium text-2xl">Register employee</h1>
 
-							<FormControl>
-								<Input {...field} />
-							</FormControl>
+			<Form {...form}>
+				<div className="max-w-5xl w-full p-7 border rounded-md">
+					<form
+						onSubmit={handleSubmit(onSubmit)}
+						className="flex flex-col gap-6 sm:flex-row"
+					>
+						<div className="flex-grow space-y-3">
+							<FormField
+								control={control}
+								name="firstname"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Firstname</FormLabel>
 
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
+										<FormControl>
+											<Input {...field} />
+										</FormControl>
 
-				<FormField
-					control={control}
-					name="lastname"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Lastname</FormLabel>
-
-							<FormControl>
-								<Input {...field} />
-							</FormControl>
-
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-
-				<FormField
-					control={control}
-					name="birthDays"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Date of Birth</FormLabel>
-
-							<DatePicker
-								onChange={field.onChange}
-								value={field.value}
-								toYears={subYears(new Date(), 15).getFullYear()}
+										<FormMessage />
+									</FormItem>
+								)}
 							/>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
 
-				<FormField
-					control={control}
-					name="startDate"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Start Date</FormLabel>
+							<FormField
+								control={control}
+								name="lastname"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Lastname</FormLabel>
 
-							<DatePicker
-								onChange={field.onChange}
-								value={field.value}
-								toYears={addYears(new Date(), 2).getFullYear()}
+										<FormControl>
+											<Input {...field} />
+										</FormControl>
+
+										<FormMessage />
+									</FormItem>
+								)}
 							/>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
 
-				<fieldset className="p-5 space-y-3 border rounded-md">
-					<legend className="px-1 text-center font-medium">Postal address</legend>
+							<FormField
+								control={control}
+								name="birthDays"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Date of Birth</FormLabel>
 
-					<FormField
-						control={control}
-						name="street"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Address</FormLabel>
+										<DatePicker
+											onChange={field.onChange}
+											value={field.value}
+											toYears={subYears(new Date(), 15).getFullYear()}
+										/>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
 
-								<FormControl>
-									<Input {...field} />
-								</FormControl>
+							<FormField
+								control={control}
+								name="startDate"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Start Date</FormLabel>
 
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
+										<DatePicker
+											onChange={field.onChange}
+											value={field.value}
+											toYears={addYears(new Date(), 2).getFullYear()}
+										/>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
 
-					<FormField
-						control={control}
-						name="city"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>City</FormLabel>
+							<FormField
+								control={control}
+								name="department"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Department</FormLabel>
 
-								<FormControl>
-									<Input {...field} />
-								</FormControl>
+										<FormControl>
+											<SelectState
+												onChange={field.onChange}
+												placeholder="Select a department"
+												options={departmentOptions}
+											/>
+										</FormControl>
 
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</div>
 
-					<FormField
-						control={control}
-						name="state"
-						render={({ field }) => (
-							<FormItem defaultValue={statesOptions[0].value}>
-								<FormLabel>State</FormLabel>
+						<fieldset className="flex-grow p-7 space-y-3 border rounded-md">
+							<legend className="px-2 text-center font-medium">Postal address</legend>
 
-								<FormControl>
-									<SelectState
-										onChange={field.onChange}
-										placeholder="Select a state"
-										options={statesOptions}
-									/>
-								</FormControl>
+							<FormField
+								control={control}
+								name="street"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Address</FormLabel>
 
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
+										<FormControl>
+											<Input {...field} />
+										</FormControl>
 
-					<FormField
-						control={control}
-						name="zipCode"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Zip Code</FormLabel>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
 
-								<FormControl>
-									<Input
-										type="number"
-										{...field}
-									/>
-								</FormControl>
+							<FormField
+								control={control}
+								name="city"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>City</FormLabel>
 
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-				</fieldset>
+										<FormControl>
+											<Input {...field} />
+										</FormControl>
 
-				<FormField
-					control={control}
-					name="department"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Department</FormLabel>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
 
-							<FormControl>
-								<SelectState
-									onChange={field.onChange}
-									placeholder="Select a department"
-									options={departmentOptions}
-								/>
-							</FormControl>
+							<FormField
+								control={control}
+								name="state"
+								render={({ field }) => (
+									<FormItem defaultValue={statesOptions[0].value}>
+										<FormLabel>State</FormLabel>
 
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
+										<FormControl>
+											<SelectState
+												onChange={field.onChange}
+												placeholder="Select a state"
+												options={statesOptions}
+											/>
+										</FormControl>
+
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={control}
+								name="zipCode"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Zip Code</FormLabel>
+
+										<FormControl>
+											<Input
+												type="number"
+												{...field}
+											/>
+										</FormControl>
+
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</fieldset>
+					</form>
+				</div>
 
 				<Button
 					type="submit"
 					onClick={handleSubmit(onSubmit)}
 					disabled={formState.isSubmitting}
+					className="px-10 text-base"
 				>
 					{formState.isSubmitting ? "Loading..." : "Submit"}
 				</Button>
-			</form>
-		</Form>
+			</Form>
+		</section>
 	);
 }
