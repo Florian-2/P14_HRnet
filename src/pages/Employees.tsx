@@ -1,3 +1,7 @@
+import { useEmployeeContext } from "@/context/employee.context";
+
 export function EmployeePage() {
-	return <h1>Liste d'employés</h1>;
+	const { employeesList } = useEmployeeContext();
+
+	return <code>{JSON.stringify(employeesList)}</code>;
 }

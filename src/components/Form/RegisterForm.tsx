@@ -11,6 +11,7 @@ import { SelectState } from "./SelectState";
 import { subYears, addYears } from "date-fns";
 import { statesOptions } from "@/shared/data/states";
 import { departmentOptions } from "@/shared/data/department";
+import { useEmployeeContext } from "@/context/employee.context";
 
 export type FormSchemaType = z.infer<typeof formSchema>;
 
@@ -18,17 +19,20 @@ export function RegisterForm() {
 	const form = useForm<FormSchemaType>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			firstname: "Florian",
-			lastname: "Sicilia",
-			street: "39 rue de mars",
-			city: "Vieryz",
-			zipCode: "02210",
+			firstname: "John",
+			lastname: "Doe",
+			street: "39 rue Desaix",
+			city: "Paris",
+			zipCode: "75015",
 		},
 	});
 	const { control, handleSubmit, formState } = form;
 
-	function onSubmit(values: FormSchemaType) {
-		console.log(values);
+	const { addEmployee } = useEmployeeContext();
+
+	function onSubmit(data: FormSchemaType) {
+		const employee = { id: crypto.randomUUID(), ...data };
+		addEmployee(employee);
 	}
 
 	return (
