@@ -3,22 +3,22 @@ import { SelectOption } from "@/interfaces";
 export const departmentOptions: SelectOption[] = [
 	{
 		label: "Sales",
-		value: "sales",
+		value: "Sales",
 	},
 	{
 		label: "Marketing",
-		value: "marketing",
+		value: "Marketing",
 	},
 	{
 		label: "Engineering",
-		value: "engineering",
+		value: "Engineering",
 	},
 	{
 		label: "Human Resources",
-		value: "human-resources",
+		value: "Human Resources",
 	},
 	{
 		label: "Legal",
-		value: "legal",
+		value: "Legal",
 	},
 ];
