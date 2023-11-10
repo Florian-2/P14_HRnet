@@ -12,14 +12,8 @@ import {
 } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { DataTablePagination } from "./pagination";
-import {
-	DropdownMenu,
-	DropdownMenuCheckboxItem,
-	DropdownMenuContent,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { SelectView } from "./select-view";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -63,39 +57,17 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 					onChange={handleGlobalFilterChange}
 				/>
 
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button
-							variant="outline"
-							className="w-fit"
-						>
-							View
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align="end">
-						{table
-							.getAllColumns()
-							.filter((column) => column.getCanHide())
-							.map((column) => {
-								return (
-									<DropdownMenuCheckboxItem
-										key={column.id}
-										checked={column.getIsVisible()}
-										onCheckedChange={(value) => column.toggleVisibility(!!value)}
-									>
-										{column.id}
-									</DropdownMenuCheckboxItem>
-								);
-							})}
-					</DropdownMenuContent>
-				</DropdownMenu>
+				<SelectView columns={table.getAllColumns()} />
 			</div>
 
 			<div className="rounded-md border">
 				<Table>
-					<TableHeader>
+					<TableHeader className="hover:bg-none">
 						{table.getHeaderGroups().map((headerGroup) => (
-							<TableRow key={headerGroup.id}>
+							<TableRow
+								className="hover:bg-white"
+								key={headerGroup.id}
+							>
 								{headerGroup.headers.map((header) => {
 									return (
 										<TableHead key={header.id}>
