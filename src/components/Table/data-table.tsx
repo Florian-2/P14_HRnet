@@ -10,7 +10,6 @@ import {
 	getSortedRowModel,
 	useReactTable,
 } from "@tanstack/react-table";
-
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { DataTablePagination } from "./pagination";
 import {
@@ -58,16 +57,22 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 	return (
 		<div className="space-y-3">
 			<div className="flex justify-between gap-3">
+				<Input
+					className="w-1/4 min-w-[250px]"
+					placeholder="Filter firstname, lastname, birthday..."
+					onChange={handleGlobalFilterChange}
+				/>
+
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Button
 							variant="outline"
 							className="w-fit"
 						>
-							Columns
+							View
 						</Button>
 					</DropdownMenuTrigger>
-					<DropdownMenuContent align="start">
+					<DropdownMenuContent align="end">
 						{table
 							.getAllColumns()
 							.filter((column) => column.getCanHide())
@@ -84,12 +89,6 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 							})}
 					</DropdownMenuContent>
 				</DropdownMenu>
-
-				<Input
-					className="w-1/4 min-w-[250px]"
-					placeholder="Filter firstname, lastname, birthday..."
-					onChange={handleGlobalFilterChange}
-				/>
 			</div>
 
 			<div className="rounded-md border">

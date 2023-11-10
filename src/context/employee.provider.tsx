@@ -5,7 +5,7 @@ import { useLocalStorage } from "usehooks-ts";
 type EmployeeContext = {
 	employeesList: Employee[];
 	addEmployee: (data: Employee) => void;
-	removeEmployee: (id: string) => void;
+	deleteEmployee: (id: string) => void;
 };
 
 export const EmployeeContext = createContext<EmployeeContext | null>(null);
@@ -16,19 +16,24 @@ export function EmployeeProvider({ children }: { children: ReactNode }) {
 
 	const addEmployee = useCallback(
 		(data: Employee) => {
-			const list = [...employeesList, data];
-			setEmployeesList(list);
-			setEmployeesStorage(list);
+			const listEmployees = [...employeesList, data];
+			setEmployeesList(listEmployees);
+			setEmployeesStorage(listEmployees);
 		},
 		[employeesList, setEmployeesStorage]
 	);
 
-	function removeEmployee(id: string) {
-		setEmployeesList(employeesList.filter((employee) => employee.id !== id));
-	}
+	const deleteEmployee = useCallback(
+		(id: string) => {
+			const listEmployees = employeesList.filter((employee) => employee.id !== id);
+			setEmployeesList(listEmployees);
+			setEmployeesStorage(listEmployees);
+		},
+		[employeesList, setEmployeesStorage]
+	);
 
 	return (
-		<EmployeeContext.Provider value={{ employeesList, addEmployee, removeEmployee }}>
+		<EmployeeContext.Provider value={{ employeesList, addEmployee, deleteEmployee }}>
 			{children}
 		</EmployeeContext.Provider>
 	);

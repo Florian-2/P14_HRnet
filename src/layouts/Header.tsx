@@ -22,9 +22,9 @@ export function Header() {
 					<NavigationMenuItem>
 						<NavLink
 							to="/employees"
-							className={navigationMenuTriggerStyle({ className: "text-base" })}
+							className={navigationMenuTriggerStyle()}
 						>
-							Liste des employés
+							List of employees
 						</NavLink>
 					</NavigationMenuItem>
 				</NavigationMenuList>

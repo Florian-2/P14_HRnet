@@ -2,6 +2,7 @@ import { Employee } from "@/interfaces";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { DataTableColumnHeader } from "./column-header";
+import { DataTableRowActions } from "./actions-row";
 
 function formatDate(date: string | Date) {
 	const startDate = new Date(date);
@@ -100,5 +101,9 @@ export const columns: ColumnDef<Employee>[] = [
 				title="Zip Code"
 			/>
 		),
+	},
+	{
+		id: "actions",
+		cell: ({ row }) => <DataTableRowActions row={row} />,
 	},
 ];
