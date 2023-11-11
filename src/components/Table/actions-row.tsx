@@ -11,10 +11,11 @@ import {
 import { Employee } from "@/interfaces";
 import { useEmployeeContext } from "@/context/employee.context";
 import { useCopyToClipboard } from "usehooks-ts";
+import { Link } from "react-router-dom";
 
-interface DataTableRowActionsProps {
+type DataTableRowActionsProps = {
 	row: Row<Employee>;
-}
+};
 
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
 	const { deleteEmployee } = useEmployeeContext();
@@ -47,7 +48,14 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
 				align="end"
 				className="w-[160px]"
 			>
-				<DropdownMenuItem>Edit</DropdownMenuItem>
+				<DropdownMenuItem asChild>
+					<Link
+						to="/"
+						state={{ employee: row.original }}
+					>
+						Edit
+					</Link>
+				</DropdownMenuItem>
 
 				{navigator.clipboard && <DropdownMenuItem onClick={handleCopy}>Copy row (JSON)</DropdownMenuItem>}
 

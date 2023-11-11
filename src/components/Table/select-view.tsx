@@ -7,9 +7,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
-interface DataTableProps<TData> {
+type DataTableProps<TData> = {
 	columns: Column<TData>[];
-}
+};
 
 export function SelectView<TData>({ columns }: DataTableProps<TData>) {
 	return (

@@ -15,10 +15,10 @@ import { DataTablePagination } from "./pagination";
 import { Input } from "../ui/input";
 import { SelectView } from "./select-view";
 
-interface DataTableProps<TData, TValue> {
+type DataTableProps<TData, TValue> = {
 	columns: ColumnDef<TData, TValue>[];
 	data: TData[];
-}
+};
 
 export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
 	const [sorting, setSorting] = useState<SortingState>([]);
@@ -60,7 +60,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 				<SelectView columns={table.getAllColumns()} />
 			</div>
 
-			<div className="rounded-md border">
+			<div className="max-h-[750px] overflow-auto rounded-md border">
 				<Table>
 					<TableHeader className="hover:bg-none">
 						{table.getHeaderGroups().map((headerGroup) => (

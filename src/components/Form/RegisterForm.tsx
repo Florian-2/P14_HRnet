@@ -12,32 +12,45 @@ import { subYears, addYears } from "date-fns";
 import { statesOptions } from "@/shared/data/states";
 import { departmentOptions } from "@/shared/data/department";
 import { useEmployeeContext } from "@/context/employee.context";
+import { Employee } from "@/interfaces";
+
+type Props = {
+	stateEmployee?: Employee;
+};
 
 export type FormSchemaType = z.infer<typeof formSchema>;
 
-export function RegisterForm() {
+export function RegisterForm({ stateEmployee }: Props) {
 	const form = useForm<FormSchemaType>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			firstname: "John",
-			lastname: "Doe",
-			street: "39 rue Desaix",
-			city: "Paris",
-			zipCode: "75015",
+			firstname: stateEmployee?.firstname || "",
+			lastname: stateEmployee?.lastname || "",
+			street: stateEmployee?.street || "",
+			city: stateEmployee?.city || "",
+			zipCode: stateEmployee?.zipCode || "",
+			department: stateEmployee?.department || "",
+			state: stateEmployee?.state || "",
+			birthDays: stateEmployee?.birthDays ? new Date(stateEmployee.birthDays) : undefined,
+			startDate: stateEmployee?.startDate ? new Date(stateEmployee.startDate) : undefined,
 		},
 	});
 	const { control, handleSubmit, formState } = form;
 
-	const { addEmployee } = useEmployeeContext();
+	const { editEmployee, addEmployee } = useEmployeeContext();
 
 	function onSubmit(data: FormSchemaType) {
+		if (stateEmployee) {
+			return editEmployee({ id: stateEmployee.id, ...data });
+		}
+
 		const employee = { id: crypto.randomUUID(), ...data };
 		addEmployee(employee);
 	}
 
 	return (
 		<section className="h-full flex flex-col gap-6 justify-center items-center mb-5 sm:gap-8 sm:-mt-14">
-			<h1 className="font-medium text-2xl">Register employee</h1>
+			<h1 className="font-medium text-2xl">{stateEmployee ? "Edit" : "Register"} employee</h1>
 
 			<Form {...form}>
 				<div className="max-w-5xl w-full p-7 border rounded-md">
@@ -90,6 +103,7 @@ export function RegisterForm() {
 											value={field.value}
 											toYears={subYears(new Date(), 15).getFullYear()}
 										/>
+
 										<FormMessage />
 									</FormItem>
 								)}
@@ -122,6 +136,7 @@ export function RegisterForm() {
 										<FormControl>
 											<SelectState
 												onChange={field.onChange}
+												defaultValue={field.value}
 												placeholder="Select a department"
 												options={departmentOptions}
 											/>
@@ -178,6 +193,7 @@ export function RegisterForm() {
 										<FormControl>
 											<SelectState
 												onChange={field.onChange}
+												defaultValue={field.value}
 												placeholder="Select a state"
 												options={statesOptions}
 											/>
