@@ -52,7 +52,7 @@ export const columns: ColumnDef<Employee>[] = [
 		),
 	},
 	{
-		accessorKey: "birthDays",
+		accessorKey: "birthDay",
 		id: "Date of Birth",
 		header: ({ column }) => (
 			<DataTableColumnHeader

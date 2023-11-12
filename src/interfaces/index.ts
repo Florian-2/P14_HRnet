@@ -7,7 +7,7 @@ export interface Employee {
 	id: string;
 	firstname: string;
 	lastname: string;
-	birthDays: Date;
+	birthDay: Date;
 	startDate: Date;
 	street: string;
 	city: string;

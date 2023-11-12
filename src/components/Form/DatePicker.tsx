@@ -9,7 +9,7 @@ import { CalendarIcon } from "lucide-react";
 
 type Props = {
 	onChange: () => void;
-	value: Date;
+	value?: Date;
 	defaultDate?: Date;
 	fromYear?: number;
 	toYears?: number;

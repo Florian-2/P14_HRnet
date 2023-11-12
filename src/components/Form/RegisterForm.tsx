@@ -1,7 +1,6 @@
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { formSchema } from "@/shared/validator/register";
+import { FormSchemaType, formSchema } from "@/shared/validator/register";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -13,12 +12,11 @@ import { statesOptions } from "@/shared/data/states";
 import { departmentOptions } from "@/shared/data/department";
 import { useEmployeeContext } from "@/context/employee.context";
 import { Employee } from "@/interfaces";
+import { useEffect } from "react";
 
 type Props = {
 	stateEmployee?: Employee;
 };
-
-export type FormSchemaType = z.infer<typeof formSchema>;
 
 export function RegisterForm({ stateEmployee }: Props) {
 	const form = useForm<FormSchemaType>({
@@ -31,25 +29,42 @@ export function RegisterForm({ stateEmployee }: Props) {
 			zipCode: stateEmployee?.zipCode || "",
 			department: stateEmployee?.department || "",
 			state: stateEmployee?.state || "",
-			birthDays: stateEmployee?.birthDays ? new Date(stateEmployee.birthDays) : undefined,
+			birthDay: stateEmployee?.birthDay ? new Date(stateEmployee.birthDay) : undefined,
 			startDate: stateEmployee?.startDate ? new Date(stateEmployee.startDate) : undefined,
 		},
 	});
-	const { control, handleSubmit, formState } = form;
+	const { control, handleSubmit, formState, reset } = form;
 
 	const { editEmployee, addEmployee } = useEmployeeContext();
+
+	useEffect(() => {
+		if (!stateEmployee) {
+			reset({
+				firstname: "",
+				lastname: "",
+				street: "",
+				city: "",
+				zipCode: "",
+				department: "",
+				state: "",
+				birthDay: undefined,
+				startDate: undefined,
+			});
+		}
+	}, [reset, stateEmployee]);
 
 	function onSubmit(data: FormSchemaType) {
 		if (stateEmployee) {
 			return editEmployee({ id: stateEmployee.id, ...data });
 		}
+		console.log(data);
 
 		const employee = { id: crypto.randomUUID(), ...data };
 		addEmployee(employee);
 	}
 
 	return (
-		<section className="h-full flex flex-col gap-6 justify-center items-center mb-5 sm:gap-8 sm:-mt-14">
+		<section className="h-full flex flex-col gap-6 justify-center items-center mb-5 sm:gap-8 sm:-mt-10">
 			<h1 className="font-medium text-2xl">{stateEmployee ? "Edit" : "Register"} employee</h1>
 
 			<Form {...form}>
@@ -64,7 +79,7 @@ export function RegisterForm({ stateEmployee }: Props) {
 								name="firstname"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Firstname</FormLabel>
+										<FormLabel>First name</FormLabel>
 
 										<FormControl>
 											<Input {...field} />
@@ -80,7 +95,7 @@ export function RegisterForm({ stateEmployee }: Props) {
 								name="lastname"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Lastname</FormLabel>
+										<FormLabel>Last name</FormLabel>
 
 										<FormControl>
 											<Input {...field} />
@@ -93,7 +108,7 @@ export function RegisterForm({ stateEmployee }: Props) {
 
 							<FormField
 								control={control}
-								name="birthDays"
+								name="birthDay"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Date of Birth</FormLabel>
