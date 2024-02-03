@@ -4,9 +4,10 @@ import { useLocation } from "react-router-dom";
 export function RegisterEmployeePage() {
 	const location = useLocation();
 
-	if (location.state?.employee) {
-		return <RegisterForm stateEmployee={location.state.employee} />;
-	}
-
-	return <RegisterForm />;
+	return (
+		<RegisterForm
+			stateEmployee={location.state?.employee}
+			key={location.state?.employee ? "edit" : "register"}
+		/>
+	);
 }

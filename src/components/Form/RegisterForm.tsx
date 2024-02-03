@@ -1,10 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { Modal, ModalContent } from "@florian_/react-simple-modal";
 import { FormSchemaType, formSchema } from "@/shared/validator/register";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-// import { SimpleField } from "./SimpleField";
 import { DatePicker } from "./DatePicker";
 import { SelectState } from "./SelectState";
 import { subYears, addYears } from "date-fns";
@@ -12,7 +12,7 @@ import { statesOptions } from "@/shared/data/states";
 import { departmentOptions } from "@/shared/data/department";
 import { useEmployeeContext } from "@/context/employee.context";
 import { Employee } from "@/interfaces";
-import { useEffect } from "react";
+import { useState } from "react";
 
 type Props = {
 	stateEmployee?: Employee;
@@ -33,34 +33,21 @@ export function RegisterForm({ stateEmployee }: Props) {
 			startDate: stateEmployee?.startDate ? new Date(stateEmployee.startDate) : undefined,
 		},
 	});
-	const { control, handleSubmit, formState, reset } = form;
+	const { control, handleSubmit, formState } = form;
 
 	const { editEmployee, addEmployee } = useEmployeeContext();
-
-	useEffect(() => {
-		if (!stateEmployee) {
-			reset({
-				firstname: "",
-				lastname: "",
-				street: "",
-				city: "",
-				zipCode: "",
-				department: "",
-				state: "",
-				birthDay: undefined,
-				startDate: undefined,
-			});
-		}
-	}, [reset, stateEmployee]);
+	const [isOpen, setIsOpen] = useState(false);
 
 	function onSubmit(data: FormSchemaType) {
+		console.log(data);
+
 		if (stateEmployee) {
 			return editEmployee({ id: stateEmployee.id, ...data });
 		}
-		console.log(data);
 
 		const employee = { id: crypto.randomUUID(), ...data };
 		addEmployee(employee);
+		setIsOpen(true);
 	}
 
 	return (
@@ -71,7 +58,7 @@ export function RegisterForm({ stateEmployee }: Props) {
 				<div className="max-w-5xl w-full p-7 border rounded-md">
 					<form
 						onSubmit={handleSubmit(onSubmit)}
-						className="flex flex-col gap-6 sm:flex-row"
+						className="flex flex-col gap-8 sm:flex-row"
 					>
 						<div className="flex-grow space-y-3">
 							<FormField
@@ -250,6 +237,15 @@ export function RegisterForm({ stateEmployee }: Props) {
 					{formState.isSubmitting ? "Loading..." : "Submit"}
 				</Button>
 			</Form>
+
+			<Modal
+				open={isOpen}
+				onClose={() => setIsOpen(false)}
+			>
+				<ModalContent>
+					<p className="text-sm">The employee has been successfully added to the list</p>
+				</ModalContent>
+			</Modal>
 		</section>
 	);
 }

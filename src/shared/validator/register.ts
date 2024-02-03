@@ -20,7 +20,7 @@ export const formSchema = z.object({
 	city: z.string().min(2, { message: ERROR_CITY }),
 	state: z.string().length(2, { message: ERROR_STATE }),
 	zipCode: z.string().min(2, { message: ERROR_ZIPCODE }),
-	department: z.string().length(1, { message: ERROR_DEPARTMENT }),
+	department: z.string().min(1, { message: ERROR_DEPARTMENT }),
 });
 
 export type FormSchemaType = z.infer<typeof formSchema>;
