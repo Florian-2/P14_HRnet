@@ -13,6 +13,8 @@ import { departmentOptions } from "@/shared/data/department";
 import { useEmployeeContext } from "@/context/employee.context";
 import { Employee } from "@/interfaces";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 type Props = {
 	stateEmployee?: Employee;
@@ -35,6 +37,7 @@ export function RegisterForm({ stateEmployee }: Props) {
 	});
 	const { control, handleSubmit, formState } = form;
 
+	const navigate = useNavigate();
 	const { editEmployee, addEmployee } = useEmployeeContext();
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -42,7 +45,9 @@ export function RegisterForm({ stateEmployee }: Props) {
 		console.log(data);
 
 		if (stateEmployee) {
-			return editEmployee({ id: stateEmployee.id, ...data });
+			editEmployee({ id: stateEmployee.id, ...data });
+			setIsOpen(true);
+			return;
 		}
 
 		const employee = { id: crypto.randomUUID(), ...data };
@@ -243,7 +248,21 @@ export function RegisterForm({ stateEmployee }: Props) {
 				onClose={() => setIsOpen(false)}
 			>
 				<ModalContent>
-					<p className="text-sm">The employee has been successfully added to the list</p>
+					<p className="text-center text-lg">
+						{stateEmployee
+							? "Employee data successfully modified"
+							: "The employee has been successfully added to the list"}
+					</p>
+					<Button
+						onClick={() => navigate("/employees")}
+						className="text-base h-auto gap-3 font-normal"
+					>
+						View employee list
+						<ArrowRight
+							size={20}
+							strokeWidth={2}
+						/>
+					</Button>
 				</ModalContent>
 			</Modal>
 		</section>

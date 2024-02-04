@@ -9,7 +9,7 @@ import { NavLink } from "react-router-dom";
 
 export function Header() {
 	return (
-		<header className="pt-1 flex justify-between items-center gap-2">
+		<header className="flex justify-between items-center gap-2">
 			<NavLink
 				to="/"
 				className="text-3xl font-medium"
@@ -24,7 +24,7 @@ export function Header() {
 							to="/employees"
 							className={navigationMenuTriggerStyle()}
 						>
-							List of employees
+							Employee list
 						</NavLink>
 					</NavigationMenuItem>
 				</NavigationMenuList>

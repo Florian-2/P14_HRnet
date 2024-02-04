@@ -7,7 +7,7 @@ function App() {
 		<>
 			<Header />
 
-			<main className="flex-grow">
+			<main>
 				<EmployeeProvider>
 					<Outlet />
 				</EmployeeProvider>
