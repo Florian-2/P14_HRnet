@@ -1,13 +1,13 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FormControl } from "../ui/form";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
-import { SelectOption } from "@/interfaces";
+import { SelectOption as SelectOptionType } from "@/interfaces";
 
 type Props = {
 	onChange: () => void;
 	placeholder?: string;
 	defaultValue?: string;
-	options: SelectOption[];
+	options: SelectOptionType[];
 };
 
 export function SelectOption({ onChange, defaultValue, placeholder, options }: Props) {

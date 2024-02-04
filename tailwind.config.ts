@@ -53,7 +53,7 @@ module.exports = {
 			},
 			gridTemplateRows: {
 				layout: "auto 1fr",
-				table: "auto minmax(0, 1fr) auto",
+				// table: "auto minmax(0, 1fr) auto",
 			},
 			keyframes: {
 				"accordion-down": {
