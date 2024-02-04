@@ -9,6 +9,7 @@ import { CalendarIcon } from "lucide-react";
 
 type Props = {
 	onChange: () => void;
+	name: string;
 	value?: Date;
 	defaultDate?: Date;
 	fromYear?: number;
@@ -17,7 +18,7 @@ type Props = {
 
 const toYearsDefault = new Date().getFullYear();
 
-export function DatePicker({ onChange, value, defaultDate, fromYear = 1940, toYears = toYearsDefault }: Props) {
+export function DatePicker({ onChange, name, value, defaultDate, fromYear = 1940, toYears = toYearsDefault }: Props) {
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
@@ -28,6 +29,7 @@ export function DatePicker({ onChange, value, defaultDate, fromYear = 1940, toYe
 					>
 						{value && format(value, "yyyy/MM/dd")}
 						<CalendarIcon className="ml-auto h-4 w-4" />
+						<span className="sr-only">{name}</span>
 					</Button>
 				</FormControl>
 			</PopoverTrigger>

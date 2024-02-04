@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { DatePicker } from "./DatePicker";
-import { SelectState } from "./SelectState";
+import { SelectOption } from "./SelectOption";
 import { subYears, addYears } from "date-fns";
 import { statesOptions } from "@/shared/data/states";
 import { departmentOptions } from "@/shared/data/department";
@@ -107,6 +107,7 @@ export function RegisterForm({ stateEmployee }: Props) {
 
 										<DatePicker
 											onChange={field.onChange}
+											name="Select your date of birth"
 											value={field.value}
 											toYears={subYears(new Date(), 15).getFullYear()}
 										/>
@@ -125,6 +126,7 @@ export function RegisterForm({ stateEmployee }: Props) {
 
 										<DatePicker
 											onChange={field.onChange}
+											name="Select entry date"
 											value={field.value}
 											toYears={addYears(new Date(), 2).getFullYear()}
 										/>
@@ -141,10 +143,10 @@ export function RegisterForm({ stateEmployee }: Props) {
 										<FormLabel>Department</FormLabel>
 
 										<FormControl>
-											<SelectState
+											<SelectOption
 												onChange={field.onChange}
 												defaultValue={field.value}
-												placeholder="Select a department"
+												placeholder="Select your department"
 												options={departmentOptions}
 											/>
 										</FormControl>
@@ -198,7 +200,7 @@ export function RegisterForm({ stateEmployee }: Props) {
 										<FormLabel>State</FormLabel>
 
 										<FormControl>
-											<SelectState
+											<SelectOption
 												onChange={field.onChange}
 												defaultValue={field.value}
 												placeholder="Select a state"

@@ -10,14 +10,14 @@ type Props = {
 	options: SelectOption[];
 };
 
-export function SelectState({ onChange, defaultValue, placeholder, options }: Props) {
+export function SelectOption({ onChange, defaultValue, placeholder, options }: Props) {
 	return (
 		<Select
 			onValueChange={onChange}
 			defaultValue={defaultValue}
 		>
 			<FormControl>
-				<SelectTrigger>
+				<SelectTrigger aria-label={placeholder}>
 					<SelectValue placeholder={placeholder} />
 				</SelectTrigger>
 			</FormControl>
