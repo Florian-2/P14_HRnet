@@ -42,14 +42,14 @@ export function RegisterForm({ stateEmployee }: Props) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	function onSubmit(data: FormSchemaType) {
-		console.log(data);
-
+		// Edit
 		if (stateEmployee) {
 			editEmployee({ id: stateEmployee.id, ...data });
 			setIsOpen(true);
 			return;
 		}
 
+		// Add
 		const employee = { id: crypto.randomUUID(), ...data };
 		addEmployee(employee);
 		setIsOpen(true);
