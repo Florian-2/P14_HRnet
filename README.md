@@ -43,10 +43,12 @@ npm
 
 ```bash
 npm install
+npm run dev
 ```
 
 pnpm
 
 ```bash
 pnpm install
+pnpm dev
 ```
